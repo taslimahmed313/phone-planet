@@ -1,83 +1,43 @@
 import React, { useState } from "react";
-import {
-    FaFacebookSquare,
-    FaInstagramSquare,
-    FaYoutubeSquare,
-} from "react-icons/fa";
-import { GiHamburgerMenu } from "react-icons/gi";
-import "./Navbar.css";
+import { HiAdjustmentsHorizontal } from "react-icons/hi2";
+import { Link } from 'react-router-dom';
+import MenuItems from './MenuItems';
 
-import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
-  const [showMediaIcons, setShowMediaIcons] = useState(false);
+  const [active,setActive] = useState(false)
+
+    const showMenu = () => {
+        setActive(!active)
+    }
+
   return (
-    <>
-      <nav className="main-nav">
-        {/* 1st logo part  */}
-        <div className="logo">
-          <h2>
-            <span>T</span>hapa
-            <span>T</span>echnical
-          </h2>
+    <div className=' w-full text-black flex justify-between p-4 items-center'>
+
+        <div className='text-2xl font-bold text-center uppercase'>
+            <h1>e <span className='block text-4xl'>Tail</span></h1>
         </div>
 
-        {/* 2nd menu part  */}
-        <div
-          className={
-            showMediaIcons ? "menu-link mobile-menu-link" : "menu-link"
-          }>
-          <ul>
-            <li>
-              <NavLink to="/">Home</NavLink>
-            </li>
-            <li>
-              <NavLink to="/about">about</NavLink>
-            </li>
-            <li>
-              <NavLink to="/service">services</NavLink>
-            </li>
-            <li>
-              <NavLink to="/contact">contact</NavLink>
-            </li>
-          </ul>
-        </div>
+        <nav>
 
-        {/* 3rd social media links */}
-        <div className="social-media">
-          <ul className="social-media-desktop">
-            <li>
-              <a
-                href="https://www.youtube.com/channel/UCwfaAHy4zQUb2APNOGXUCCA"
-                target="_thapa">
-                <FaFacebookSquare className="facebook" />
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://www.instagram.com/thapatechnical/"
-                target="_thapa">
-                <FaInstagramSquare className="instagram" />
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://www.youtube.com/channel/UCwfaAHy4zQUb2APNOGXUCCA"
-                target="_thapa">
-                <FaYoutubeSquare className="youtube" />
-              </a>
-            </li>
-          </ul>
+            <div className='absolute right-6 md:hidden top-6 scale-150'>
+                <HiAdjustmentsHorizontal onClick={showMenu} className='scale-150 cursor-pointer'/>
+            </div>
 
-          {/* hamburget menu start  */}
-          <div className="hamburger-menu">
-            <a href="#4" onClick={() => setShowMediaIcons(!showMediaIcons)}>
-              <GiHamburgerMenu />
-            </a>
-          </div>
-        </div>
-      </nav>
-    </>
+                <ul className='hidden md:flex gap-8 p-6 uppercase bg-white/10'>
+                    <li><Link to='/'>Home</Link></li>
+                    <li><Link to='/'>Testimonials</Link></li>
+                    <li><Link to='/'>Information</Link></li>
+                    <li><Link to='/'>Jobs</Link></li>
+                    <li><Link to='/'>About</Link></li>
+                    <li><Link to='/'>Contact</Link></li>
+                </ul>
+
+                <MenuItems showMenu={showMenu} active={active}/>
+
+        </nav>
+
+    </div>
   );
 };
 
